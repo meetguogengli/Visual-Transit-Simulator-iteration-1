@@ -9,6 +9,7 @@
 **Step 1: Please, provide here a brief description (one short paragraph) of the distribution of work across your team. You can refine this description as you carry out the project iteration.**
 
 * What we expect for the project is we try our best to separate the work to 1/3 to everyone.
+* Albert Wang and Xinyue Yu: Task 1,2,3,12 and Guogeng Li should do some modifications to the UML class diagrams(Should done by 10/19). Albert: Task 6+7, Xinyue: Task 8+9, Guogeng: Task 10+4+5, done by 10/26. For the third part of software changes, testing and revision, we should split our work and meet on zoom to complete. (done by 11/02)
 
 ### Project Responsibilities of the Individual
 * Individually, contribute to the success of the team according to the policies and schedule agreed upon by all team members. Individually, create the opportunity for everyone in your group to succeed at being a good team member - don't do all the work yourself.
@@ -25,7 +26,10 @@ Establish your own additional team policies around the following aspects:
 
 #### Additional Expectations and Responsabilities
 **Step 2: Please, describe here (using as much text as you need) additional expections and responsabilities for this project iteration**.
-* We would use facebook and other social network and PIAZZA platform to communicate and plan our schedule
+* We would use facebook and other social network and PIAZZA platform to communicate and plan our schedule. We also created our chat group in Groupme. The expected time for response in within 30 minutes. 
+* Always notify the rest of group before and after we want to make changes to the main branch. 
+* Weekly meeting on zoom is required and at least one of us should attend the lab section in case we have some questions. 
+* ALways reach out to TAs and the instructor when we can't solve the problem. For normal problems, we should put them up in our chat gruop. 
 ## Team Member Names
 **Step 3: Please enter your name. Each one of the team members should add the name through a different commit. For example, student A adds their name and commits, then student B adds their name and commits.**
 * Guogeng Li
