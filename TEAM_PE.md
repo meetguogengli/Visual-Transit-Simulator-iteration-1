@@ -8,6 +8,8 @@
 #### Distribution of Work
 **Step 1: Please, provide here a brief description (one short paragraph) of the distribution of work across your team. You can refine this description as you carry out the project iteration.**
 
+* What we expect for the project is we try our best to separate the work to 1/3 to everyone.
+
 ### Project Responsibilities of the Individual
 * Individually, contribute to the success of the team according to the policies and schedule agreed upon by all team members. Individually, create the opportunity for everyone in your group to succeed at being a good team member - don't do all the work yourself.
 
@@ -23,7 +25,7 @@ Establish your own additional team policies around the following aspects:
 
 #### Additional Expectations and Responsabilities
 **Step 2: Please, describe here (using as much text as you need) additional expections and responsabilities for this project iteration**.
-
+* We would use facebook and other social network and PIAZZA platform to communicate and plan our schedule
 ## Team Member Names
 **Step 3: Please enter your name. Each one of the team members should add the name through a different commit. For example, student A adds their name and commits, then student B adds their name and commits.**
 * Guogeng Li
