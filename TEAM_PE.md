@@ -10,9 +10,9 @@
 
 * What we expect for the project is we try our best to separate the work to 1/3 to everyone.
 * Guogeng Li: UML class diagrams(Should done by 10/19) and Task 10+4+5, done by 10/26. 
-Albert: Task Task 1,2,3,12(Should done by 10/19) and 6+7, done by 10/26
-Xinyue: Task Task 1,2,3,12(Should done by 10/19) and 8+9, done by 10/26
-For the third part of software changes, testing and revision, we should split our work and meet on zoom to complete. (done by 11/02)
+* Albert: Task Task 1,2,3,12(Should done by 10/19) and 6+7, done by 10/26
+* Xinyue: Task Task 1,2,3,12(Should done by 10/19) and 8+9, done by 10/26
+* For the third part of software changes, testing and revision, we should split our work and meet on zoom to complete. (done by 11/02)
 
 ### Project Responsibilities of the Individual
 * Individually, contribute to the success of the team according to the policies and schedule agreed upon by all team members. Individually, create the opportunity for everyone in your group to succeed at being a good team member - don't do all the work yourself.
