@@ -50,7 +50,7 @@ public class Stop {
    */
   public int loadPassengers(Bus bus) {
     int passengersAdded = 0;
-    while (!passengers.isEmpty() && bus.loadPassenger(passengers.get(0)) > 0) {
+    while (!passengers.isEmpty() && bus.loadPassenger(passengers.get(0)) == true) {
       // passenger is ON the bus and passenger have left the stop
       passengers.remove(0);
       passengersAdded++;

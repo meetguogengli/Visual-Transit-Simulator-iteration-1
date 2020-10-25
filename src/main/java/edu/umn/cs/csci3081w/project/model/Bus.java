@@ -64,7 +64,7 @@ public class Bus {
     return outgoingRoute.isAtEnd() && incomingRoute.isAtEnd();
   }
 
-  public int loadPassenger(Passenger newPassenger) {
+  public boolean loadPassenger(Passenger newPassenger) {
     return loader.loadPassenger(newPassenger, passengerMaxCapacity, passengers);
   }
 

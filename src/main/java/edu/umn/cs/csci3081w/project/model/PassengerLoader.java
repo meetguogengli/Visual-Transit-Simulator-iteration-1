@@ -14,18 +14,22 @@ public class PassengerLoader {
    * @param maxPass max number of passengers in bus
    * @param newPassenger new passenger to be laoded
    * @param passengers list of passengers
-   * @return the number of passengers added
+   * @return the true if passengers added, false otherwise
    */
-  public int loadPassenger(Passenger newPassenger, int maxPass, List<Passenger> passengers) {
+
+  public boolean loadPassenger(Passenger newPassenger, int maxPass, List<Passenger> passengers) {
     // Normally would use a boolean, but for extensibility,
     // using count of those added_passenger
     // Currently, only one could be added, so possible values are 0 or 1.
     int addedPassengers = 0;
-    if (passengers.size() < maxPass) {
+    if (passengers.size() >= maxPass){
+      return false;
+    }
+    else if(passengers.size() < maxPass) {
       passengers.add(newPassenger);
       newPassenger.getOnBus();
       addedPassengers = 1;
     }
-    return addedPassengers;
+    return true;
   }
 }
