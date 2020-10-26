@@ -19,6 +19,5 @@ public class BusTest {
    * Setup operations before each runs.
    */
   public void setUp(){
-
   }
 }
