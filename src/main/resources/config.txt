@@ -25,7 +25,7 @@ STOP, Pleasant Street at Jones-Eddy Circle, 44.978366, -93.236038, .1
 STOP, Bruininks Hall, 44.974549, -93.236927, .3
 STOP, Blegen Hall, 44.972638, -93.243591, 0
 
-ROUTE, Express East Bound
+ROUTE, Express_East Bound
 
 STOP, Blegen Hall, 44.972392, -93.243774, .15
 STOP, Coffman, 44.973580, -93.235071, .3
@@ -34,7 +34,7 @@ STOP, Transitway at 23rd Avenue SE, 44.975837, -93.222174, .05
 STOP, Transitway at Commonwealth Avenue, 44.980753, -93.180669, .05
 STOP, State Fairgrounds Lot S-108, 44.983375, -93.178810, .01
 
-ROUTE, West Bound
+ROUTE, Express_West Bound
 
 STOP, State Fairgrounds Lot S-108, 44.983703, -93.178846, .01
 STOP, Transitway at Commonwealth Avenue, 44.980663, -93.180808, .01
