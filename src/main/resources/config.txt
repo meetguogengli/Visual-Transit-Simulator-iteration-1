@@ -24,3 +24,18 @@ STOP, Ridder Arena, 44.978058, -93.229176, .05
 STOP, Pleasant Street at Jones-Eddy Circle, 44.978366, -93.236038, .1
 STOP, Bruininks Hall, 44.974549, -93.236927, .3
 STOP, Blegen Hall, 44.972638, -93.243591, 0
+
+ROUTE, Express East Bound
+
+STOP, Blegen Hall, 44.972392, -93.243774, .15
+STOP, Coffman, 44.973580, -93.235071, .3
+STOP, Oak Street at University Avenue, 44.975392, -93.226632, .025
+STOP, Transitway at 23rd Avenue SE, 44.975837, -93.222174, .05
+
+ROUTE, Express West Bound
+
+STOP, Ridder Arena, 44.978058, -93.229176, .05
+STOP, Pleasant Street at Jones-Eddy Circle, 44.978366, -93.236038, .1
+STOP, Bruininks Hall, 44.974549, -93.236927, .3
+STOP, Blegen Hall, 44.972638, -93.243591, 0
+
