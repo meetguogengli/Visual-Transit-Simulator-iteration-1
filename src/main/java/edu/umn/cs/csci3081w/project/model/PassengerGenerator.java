@@ -23,7 +23,6 @@ public abstract class PassengerGenerator {
       this.stops.add(s);
     }
   }
-
   public abstract int generatePassengers();
 
   public List<Double> getProbs() {

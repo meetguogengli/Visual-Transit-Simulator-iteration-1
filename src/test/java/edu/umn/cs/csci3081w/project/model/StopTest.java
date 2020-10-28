@@ -147,6 +147,19 @@ public class StopTest {
     assertEquals(5, passengersOnBus);
   }
 
+   /**
+   * Test stopUpdate
+   */
+  //@Test
+  //public void testStopUpdate(){
+    //Bus testBus=createBus();
+    //Stop stop=new Passenger(1,"Goldy");
+    //testBus.getNextStop().addPassengers(passenger);
+    //testBus.getNextStop().loadPassengers(testBus);
+    //passenger.pasUpdate();
+    //assertEquals(true,passenger.isOnBus());
+  //}
+
   /**
    * Tests if passengers can be loaded onto a bus with space correctly from a stop
    * loadPassengers returns the number of passengers at stop.

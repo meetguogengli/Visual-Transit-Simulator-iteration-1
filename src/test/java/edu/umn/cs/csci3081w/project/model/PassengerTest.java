@@ -72,13 +72,13 @@ public class PassengerTest {
   /**
    * Test passenger's name after name generation.
    */
-  @Test
-  public void testNameGeneration(){
-    String generatedName=PassengerFactory.nameGeneration();
-    assertEquals("Goldy",generatedName);
-  }
+  //@Test
+  //public void testNameGeneration(){
+    //String generatedName=PassengerFactory.nameGeneration();
+    //assertEquals("Goldy",generatedName);
+  //}
   /**
-   * Test the status for passenger on the bus-> not on the bus.
+   * Test the status for passenger not on the bus.
    */
   @Test
   public void testIsOnBus1(){
@@ -99,6 +99,96 @@ public class PassengerTest {
     assertEquals(true,status);
   }
 
+  /**
+   * Test pasUpdate.
+   */
+  @Test
+  public void testPasUpdate(){
+    Bus testBus=createBus();
+    Passenger passenger=new Passenger(1,"Goldy");
+    testBus.getNextStop().addPassengers(passenger);
+    testBus.getNextStop().loadPassengers(testBus);
+    passenger.pasUpdate();
+    assertEquals(2,passenger.getTotalWait());
+  }
+  /**
+   * Test for on the bus->not on the bus.
+   */
+  //@Test
+  //public void testIsOnBus3(){
+    //Bus testBus=createBus();
+    //Passenger passenger1=new Passenger(1,"Goldy");
+    //List<Passenger> passengerIn = new ArrayList<Passenger>();
+    //passengerIn.add(passenger1);
+    //Stop stop1=new Stop(0, 44.972392, -93.243774);
+    //testBus.getNextStop().addPassengers(passenger1);
+    //testBus.getNextStop().loadPassengers(testBus);
+    //PassengerUnloader pl=new PassengerUnloader();
+    //pl.unloadPassengers(passengerIn,stop1);
+    //boolean status=passenger1.isOnBus();
+    //assertEquals(false,status);
+  //}
+  /**
+   * Testing reporting functionality with no passenger getting on the bus.
+   */
+  @Test
+  public void testPassengerWithourGetOnBus(){
+    try{
+      Passenger passenger1=new Passenger(0,"Goldy");
+      final Charset charset=StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream,true,charset.name());
+      passenger1.report(testStream);
+      outputStream.flush();
+      String data=new String(outputStream.toByteArray(),charset);
+      testStream.close();
+      outputStream.close();
+      String strToCompare=
+          "####Passenger Info Start####" + System.lineSeparator()
+              + "Name: Goldy" + System.lineSeparator()
+              + "Destination: 0" + System.lineSeparator()
+              + "Total wait: 0" + System.lineSeparator()
+              + "Wait at stop: 0" + System.lineSeparator()
+              + "Time on bus: 0" + System.lineSeparator()
+              + "####Passenger Info End####" + System.lineSeparator();
+      assertEquals(data, strToCompare);
+    } catch(IOException ioe){
+      fail();
+    }
+  }
+
+ /**
+   * Testing reporting functionality with no passenger getting on the bus.
+   */
+  @Test
+  public void testPassenger2GetOnBus(){
+    try{
+      Bus testBus=createBus();
+      Passenger passenger1=new Passenger(1,"Goldy");
+      testBus.getNextStop().addPassengers(passenger1);
+      testBus.getNextStop().loadPassengers(testBus);
+      passenger1.pasUpdate();
+      final Charset charset=StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream,true,charset.name());
+      passenger1.report(testStream);
+      outputStream.flush();
+      String data=new String(outputStream.toByteArray(),charset);
+      testStream.close();
+      outputStream.close();
+      String strToCompare=
+          "####Passenger Info Start####" + System.lineSeparator()
+              + "Name: Goldy" + System.lineSeparator()
+              + "Destination: 1" + System.lineSeparator()
+              + "Total wait: 2" + System.lineSeparator()
+              + "Wait at stop: 0" + System.lineSeparator()
+              + "Time on bus: 2" + System.lineSeparator()
+              + "####Passenger Info End####" + System.lineSeparator();
+      assertEquals(data, strToCompare);
+    } catch(IOException ioe){
+      fail();
+    }
+  }
 
 
 }
