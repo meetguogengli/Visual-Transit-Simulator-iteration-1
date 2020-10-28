@@ -60,4 +60,45 @@ public class PassengerTest {
     Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
     return new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
   }
+  /**
+   * Test after using constructor.
+   */
+  @Test
+  public void testConstructorNormal(){
+    Passenger passenger=new Passenger(1,"Goldy");
+    assertEquals(1, passenger.getDestination());
+    //assertEquals("Goldy",passenger.getName());
+  }
+  /**
+   * Test passenger's name after name generation.
+   */
+  @Test
+  public void testNameGeneration(){
+    String generatedName=PassengerFactory.nameGeneration();
+    assertEquals("Goldy",generatedName);
+  }
+  /**
+   * Test the status for passenger on the bus-> not on the bus.
+   */
+  @Test
+  public void testIsOnBus1(){
+    Passenger passenger=new Passenger(1,"Goldy");
+    boolean status=passenger.isOnBus();
+    assertEquals(false,status);
+  }
+  /**
+   * Test the status for passenger on the bus->on the bus.
+   */
+  @Test
+  public void testIsOnBus2(){
+    Bus testBus=createBus();
+    Passenger passenger=new Passenger(1,"Goldy");
+    testBus.getNextStop().addPassengers(passenger);
+    testBus.getNextStop().loadPassengers(testBus);
+    boolean status=passenger.isOnBus();
+    assertEquals(true,status);
+  }
+
+
+
 }

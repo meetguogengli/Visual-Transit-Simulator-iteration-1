@@ -60,4 +60,13 @@ public class BusTest {
     Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
     return new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
   }
+  /**
+   * Test state after using constructor.
+   */
+  @Test
+  public void testConstructorNormal(){
+    //PassengerGenerator g1=new RandomPassengerGenerator(.15,stop1);
+    //Route testRoute1=new Route("in",["ab","cd"],0.008784,3,"es");
+    //Bus bus =new Bus("WestandEast",West,East,30,35.0);
+  }
 }
