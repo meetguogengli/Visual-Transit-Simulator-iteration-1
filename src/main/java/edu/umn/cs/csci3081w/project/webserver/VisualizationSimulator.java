@@ -16,7 +16,8 @@ public class VisualizationSimulator {
   private List<Route> prototypeRoutes;
   private List<Bus> busses;
   private int busId = 1000;
-
+  private boolean is_pause = false;
+  private boolean is_resume = false;
   /**
    * Constructor for Simulation.
    * @param webI MWS object
@@ -56,40 +57,66 @@ public class VisualizationSimulator {
    * Updates the simulation at each step.
    */
   public void update() {
-    simulationTimeElapsed++;
-    System.out.println("~~~~The simulation time is now at time step "
-        + simulationTimeElapsed + "~~~~");
-    // Check if we need to generate new busses
-    for (int i = 0; i < timeSinceLastBus.size(); i++) {
-      // Check if we need to make a new bus
-      if (timeSinceLastBus.get(i) <= 0) {
-        Route outbound = prototypeRoutes.get(2 * i);
-        Route inbound = prototypeRoutes.get(2 * i + 1);
-        busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
-            1));
-        busId++;
-        timeSinceLastBus.set(i, busStartTimings.get(i));
-        timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
-      } else {
-        timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
+    if(is_pause == false || is_resume == true){
+      simulationTimeElapsed++;
+      System.out.println("~~~~The simulation time is now at time step "
+          + simulationTimeElapsed + "~~~~");
+      // Check if we need to generate new busses
+      for (int i = 0; i < timeSinceLastBus.size(); i++) {
+        // Check if we need to make a new bus
+        if (timeSinceLastBus.get(i) <= 0) {
+          Route outbound = prototypeRoutes.get(2 * i);
+          Route inbound = prototypeRoutes.get(2 * i + 1);
+          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
+              1));
+          busId++;
+          timeSinceLastBus.set(i, busStartTimings.get(i));
+          timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
+        } else {
+          timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
+        }
+      }
+      // Update busses
+      for (int i = busses.size() - 1; i >= 0; i--) {
+        busses.get(i).update();
+        if (busses.get(i).isTripComplete()) {
+          webInterface.updateBus(busses.get(i).getBusData(), true);
+          busses.remove(i);
+          continue;
+        }
+        webInterface.updateBus(busses.get(i).getBusData(), false);
+        busses.get(i).report(System.out);
+      }
+      // Update routes
+      for (int i = 0; i < prototypeRoutes.size(); i++) {
+        prototypeRoutes.get(i).update();
+        webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
+        prototypeRoutes.get(i).report(System.out);
       }
     }
-    // Update busses
-    for (int i = busses.size() - 1; i >= 0; i--) {
-      busses.get(i).update();
-      if (busses.get(i).isTripComplete()) {
-        webInterface.updateBus(busses.get(i).getBusData(), true);
-        busses.remove(i);
-        continue;
-      }
-      webInterface.updateBus(busses.get(i).getBusData(), false);
-      busses.get(i).report(System.out);
+  }
+  /**
+   * Pause the simulation at a specific step.
+   */
+  public void setPause(){
+    if (is_pause == false){
+      is_pause=true;
     }
-    // Update routes
-    for (int i = 0; i < prototypeRoutes.size(); i++) {
-      prototypeRoutes.get(i).update();
-      webInterface.updateRoute(prototypeRoutes.get(i).getRouteData(), false);
-      prototypeRoutes.get(i).report(System.out);
+    else if (is_pause == true)
+    {
+      is_pause = false;
+    }
+  }
+  /**
+   * Resume the simulation
+   */
+  public void setResume(){
+    if (is_resume == false){
+      is_resume = true;
+    }
+    else if (is_resume == true)
+    {
+      is_resume = false;
     }
   }
 }
