@@ -8,7 +8,7 @@ import java.util.List;
 public class ResumeCommand extends MyWebServerCommand {
   private VisualizationSimulator mySim;
 
-  public PauseCommand(VisualizationSimulator sim){
+  public ResumeCommand(VisualizationSimulator sim){
   	this.mySim=sim;
   }
   /**
