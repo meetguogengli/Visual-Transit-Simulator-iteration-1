@@ -25,6 +25,10 @@ STOP, Pleasant Street at Jones-Eddy Circle, 44.978366, -93.236038, .1
 STOP, Bruininks Hall, 44.974549, -93.236927, .3
 STOP, Blegen Hall, 44.972638, -93.243591, 0
 
+ROUTE_GENERAL, Campus Connector
+
+Stop Name, Long, Lat, Pass Gen Prob
+
 ROUTE, Express_East Bound
 
 STOP, Blegen Hall, 44.972392, -93.243774, .15
