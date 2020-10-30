@@ -218,17 +218,19 @@ public class RouteTest {
 
   }
   /**
-   * Test for empty stop.
+   * Test for route with only one stop.
    */
   @Test
   public void testReport0(){
     try{
+      Stop stop1 = new Stop(0, 44.972392, -93.243774);
       List<Stop> stopsIn = new ArrayList<Stop>();
+      stopsIn.add(stop1);
       List<Double> distancesIn = new ArrayList<Double>();
       //System.out.println(distancesIn);
       List<Double> probabilitiesIn = new ArrayList<Double>();
       PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-      Route testRoute1=new Route("testIn",stopsIn,distancesIn,0,testGenIn);
+      Route testRoute1=new Route("testIn",stopsIn,distancesIn,1,testGenIn);
       final Charset charset=StandardCharsets.UTF_8;
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       PrintStream testStream = new PrintStream(outputStream, true, charset.name());
@@ -240,11 +242,18 @@ public class RouteTest {
       String strToCompare =
           "####Route Info Start####" + System.lineSeparator()
               + "Name: testIn" + System.lineSeparator()
-              + "Num stops: 2" + System.lineSeparator()
+              + "Num stops: 1" + System.lineSeparator()
               + "****Stops Info Start****" + System.lineSeparator()
               + "++++Next Stop Info Start++++" + System.lineSeparator()
               + "####Stop Info Start####" + System.lineSeparator()
-              + "ID: 0" + System.lineSeparator();
+              + "ID: 0" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num passengers waiting: 0" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Stop Info End####" + System.lineSeparator()
+              + "++++Next Stop Info End++++" + System.lineSeparator()
+              + "****Stops Info End****" + System.lineSeparator()
+              + "####Route Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
     }catch(IOException ioe){
       fail();
