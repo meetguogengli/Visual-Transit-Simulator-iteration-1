@@ -22,9 +22,7 @@ public class PassengerLoader {
     // using count of those added_passenger
     // Currently, only one could be added, so possible values are 0 or 1.
     int addedPassengers = 0;
-    if (passengers.size() >= maxPass) {
-      return false;
-    }
+    if (passengers.size() >= maxPass) { return false; }
     else if (passengers.size() < maxPass) {
       passengers.add(newPassenger);
       newPassenger.getOnBus();

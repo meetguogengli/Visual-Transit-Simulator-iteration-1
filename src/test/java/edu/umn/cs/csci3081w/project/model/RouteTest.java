@@ -25,6 +25,7 @@ public class RouteTest {
     PassengerFactory.DETERMINISTIC_DESTINATION_COUNT = 0;
     RandomPassengerGenerator.DETERMINISTIC = true;
   }
+
   /**
    * Create a bus with outgoing and incoming routes and three stops per route.
    */
@@ -60,12 +61,13 @@ public class RouteTest {
     Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
     return new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
   }
+
   /**
    * Test states after constructor.
    */
   @Test
-  public void testConstructorNormal(){
-    Bus testBus=createBus();
+  public void testConstructorNormal() {
+    Bus testBus = createBus();
     //Passenger passenger1=new Passenger(1,"Goldy");
     //testBus.getNextStop().addPassengers(passenger1);
     //testBus.getNextStop().loadPassengers(testBus);
@@ -82,75 +84,22 @@ public class RouteTest {
     probabilitiesIn.add(.15);
     probabilitiesIn.add(0.3);
     PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-    Route testRoute1=new Route("testIn",stopsIn,distancesIn,2,testGenIn);
+    Route testRoute1 = new Route("testIn", stopsIn, distancesIn, 2, testGenIn);
     testRoute1.toNextStop();
-    assertEquals("testIn",testRoute1.getName());
-    assertEquals(stopsIn,testRoute1.getStops());
-    assertEquals(1,testRoute1.getDestinationStopIndex());
-    assertEquals(distancesIn.get(0),testRoute1.getTotalRouteDistance());
+    assertEquals("testIn", testRoute1.getName());
+    assertEquals(stopsIn, testRoute1.getStops());
+    assertEquals(1, testRoute1.getDestinationStopIndex());
+    assertEquals(distancesIn.get(0), testRoute1.getTotalRouteDistance());
     //how to test random passenger generator??
     //System.out.println(testGenIn);
     //assertEquals(3,testGenIn);
   }
+
   /**
    * Test shallow copy.
    */
-   @Test
-   public void testShallowCopy(){
-     Stop stop1 = new Stop(0, 44.972392, -93.243774);
-     Stop stop2 = new Stop(1, 44.973580, -93.235071);
-     List<Stop> stopsIn = new ArrayList<Stop>();
-     stopsIn.add(stop1);
-     stopsIn.add(stop2);
-     List<Double> distancesIn = new ArrayList<Double>();
-     distancesIn.add(0.008784);
-     //System.out.println(distancesIn);
-     List<Double> probabilitiesIn = new ArrayList<Double>();
-     probabilitiesIn.add(.15);
-     probabilitiesIn.add(0.3);
-     PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-     Route testRoute1=new Route("testIn",stopsIn,distancesIn,2,testGenIn);
-     Route copiedRoute=testRoute1.shallowCopy();
-     //assertEquals(false,testRoute1==copiedRoute);
-     assertEquals(copiedRoute.getName(),testRoute1.getName());
-     assertEquals(copiedRoute.getTotalRouteDistance(),testRoute1.getTotalRouteDistance());
-     assertEquals(copiedRoute.getRouteData(),testRoute1.getRouteData());
-   }
-  /**
-   * Test for generate new passenger.
-   */
   @Test
-  public void testGenerateNewPassenger(){
-     Stop stop1 = new Stop(0, 44.972392, -93.243774);
-     Stop stop2 = new Stop(1, 44.973580, -93.235071);
-     List<Stop> stopsIn = new ArrayList<Stop>();
-     stopsIn.add(stop1);
-     stopsIn.add(stop2);
-     Stop stop3 = new Stop(0, 44.972392, -93.243774);
-     Stop stop4 = new Stop(1, 44.973580, -93.235071);
-     List<Stop> stopsIn1 = new ArrayList<Stop>();
-     stopsIn1.add(stop3);
-     stopsIn1.add(stop4);
-     List<Double> distancesIn = new ArrayList<Double>();
-     distancesIn.add(0.008784);
-     //System.out.println(distancesIn);
-     List<Double> probabilitiesIn = new ArrayList<Double>();
-     probabilitiesIn.add(.7);
-     //System.out.println(distancesIn1);
-     List<Double> probabilitiesIn1 = new ArrayList<Double>();
-     probabilitiesIn1.add(.7);
-     PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-     PassengerGenerator testGenIn2 = new RandomPassengerGenerator(probabilitiesIn1, stopsIn1);
-     Route testRoute1=new Route("testIn",stopsIn,distancesIn,2,testGenIn);
-     Route testRoute2=new Route("testIn1",stopsIn1,distancesIn,2,testGenIn2);
-     //System.outfail(.println(testRoute1.generateNewPassengers());
-     assertEquals(testRoute1.generateNewPassengers(),testRoute2.generateNewPassengers());
-  }
-  /**
-   * Testing update for route data.
-   */
-  @Test
-  public void testUpdate(){
+  public void testShallowCopy() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     List<Stop> stopsIn = new ArrayList<Stop>();
@@ -163,16 +112,76 @@ public class RouteTest {
     probabilitiesIn.add(.15);
     probabilitiesIn.add(0.3);
     PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-    Route testRoute1=new Route("testIn",stopsIn,distancesIn,2,testGenIn);
+    Route testRoute1 = new Route("testIn", stopsIn, distancesIn, 2, testGenIn);
+    Route copiedRoute = testRoute1.shallowCopy();
+    //assertEquals(false,testRoute1==copiedRoute);
+    assertEquals(copiedRoute.getName(), testRoute1.getName());
+    assertEquals(copiedRoute.getTotalRouteDistance(), testRoute1.getTotalRouteDistance());
+    assertEquals(copiedRoute.getRouteData(), testRoute1.getRouteData());
+  }
+
+  /**
+   * Test for generate new passenger.
+   */
+  @Test
+  public void testGenerateNewPassenger() {
+    Stop stop1 = new Stop(0, 44.972392, -93.243774);
+    Stop stop2 = new Stop(1, 44.973580, -93.235071);
+    List<Stop> stopsIn = new ArrayList<Stop>();
+    stopsIn.add(stop1);
+    stopsIn.add(stop2);
+    Stop stop3 = new Stop(0, 44.972392, -93.243774);
+    Stop stop4 = new Stop(1, 44.973580, -93.235071);
+    List<Stop> stopsIn1 = new ArrayList<Stop>();
+    stopsIn1.add(stop3);
+    stopsIn1.add(stop4);
+    List<Double> distancesIn = new ArrayList<Double>();
+    distancesIn.add(0.008784);
+    //System.out.println(distancesIn);
+    List<Double> probabilitiesIn = new ArrayList<Double>();
+    probabilitiesIn.add(.7);
+    //System.out.println(distancesIn1);
+    List<Double> probabilitiesIn1 = new ArrayList<Double>();
+    probabilitiesIn1.add(.7);
+    PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
+    PassengerGenerator testGenIn2 = new RandomPassengerGenerator(probabilitiesIn1, stopsIn1);
+    Route testRoute1 = new Route("testIn", stopsIn, distancesIn, 2, testGenIn);
+    Route testRoute2 = new Route("testIn1", stopsIn1, distancesIn, 2, testGenIn2);
+    //System.outfail(.println(testRoute1.generateNewPassengers());
+    assertEquals(testRoute1.generateNewPassengers(), testRoute2.generateNewPassengers());
+  }
+
+  /**
+   * Testing update for route data.
+   */
+  @Test
+  public void testUpdate() {
+    Stop stop1 = new Stop(0, 44.972392, -93.243774);
+    Stop stop2 = new Stop(1, 44.973580, -93.235071);
+    List<Stop> stopsIn = new ArrayList<Stop>();
+    stopsIn.add(stop1);
+    stopsIn.add(stop2);
+    List<Double> distancesIn = new ArrayList<Double>();
+    distancesIn.add(0.008784);
+    //System.out.println(distancesIn);
+    List<Double> probabilitiesIn = new ArrayList<Double>();
+    probabilitiesIn.add(.15);
+    probabilitiesIn.add(0.3);
+    PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
+    Route testRoute1 = new Route("testIn", stopsIn, distancesIn, 2, testGenIn);
     testRoute1.update();
     //System.out.println(testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait());
     //System.out.println(testRoute1.getStops().get(0).getPassengers().get(0).getDestination());
-    assertEquals(1,testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait());
-    assertEquals(1,testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait());
-    assertEquals(stopsIn.get(0).getLongitude(),testRoute1.getRouteData().getStops().get(0).getPosition().getXcoordLoc());
-    assertEquals(stopsIn.get(0).getLatitude(),testRoute1.getRouteData().getStops().get(0).getPosition().getYcoordLoc());
-    assertEquals(stopsIn.get(0).getNumPassengersPresent(),testRoute1.getRouteData().getStops().get(0).getNumPeople());
-    assertEquals(Integer.toString(stopsIn.get(0).getId()),testRoute1.getRouteData().getStops().get(0).getId());
+    assertEquals(1, testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait());
+    assertEquals(1, testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait());
+    assertEquals(stopsIn.get(0).getLongitude(),
+        testRoute1.getRouteData().getStops().get(0).getPosition().getXcoordLoc());
+    assertEquals(stopsIn.get(0).getLatitude(),
+        testRoute1.getRouteData().getStops().get(0).getPosition().getYcoordLoc());
+    assertEquals(stopsIn.get(0).getNumPassengersPresent(),
+        testRoute1.getRouteData().getStops().get(0).getNumPeople());
+    assertEquals(Integer.toString(stopsIn.get(0).getId()),
+        testRoute1.getRouteData().getStops().get(0).getId());
     /*try{
     final Charset charset=StandardCharsets.UTF_8;
     ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
@@ -184,10 +193,14 @@ public class RouteTest {
     outputStream.close();
     //System.out.println(data);
     assertEquals(1,testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait());
-    assertEquals(stopsIn.get(0).getLongitude(),testRoute1.getRouteData().getStops().get(0).getPosition().getXcoordLoc());
-    assertEquals(stopsIn.get(0).getLatitude(),testRoute1.getRouteData().getStops().get(0).getPosition().getYcoordLoc());
-    assertEquals(stopsIn.get(0).getNumPassengersPresent(),testRoute1.getRouteData().getStops().get(0).getNumPeople());
-    assertEquals(Integer.toString(stopsIn.get(0).getId()),testRoute1.getRouteData().getStops().get(0).getId());
+    assertEquals(stopsIn.get(0).getLongitude(),
+    testRoute1.getRouteData().getStops().get(0).getPosition().getXcoordLoc());
+    assertEquals(stopsIn.get(0).getLatitude(),
+    testRoute1.getRouteData().getStops().get(0).getPosition().getYcoordLoc());
+    assertEquals(stopsIn.get(0).getNumPassengersPresent(),
+    testRoute1.getRouteData().getStops().get(0).getNumPeople());
+    assertEquals(Integer.toString(stopsIn.get(0).getId()),
+    testRoute1.getRouteData().getStops().get(0).getId());
     } catch(IOException ioe){
       fail();
     }
@@ -203,19 +216,20 @@ public class RouteTest {
 
     //testRoute1.update();
     //System.out.println(p1);
-   // int a=testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait();
-   // testRoute1.update();
+    // int a=testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait();
+    // testRoute1.update();
     //int b=testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait();
     //System.out.println(a);
     //System.out.println(b);
 
   }
+
   /**
    * Test for route with only one stop.
    */
   @Test
-  public void testReport0(){
-    try{
+  public void testReport0() {
+    try {
       Stop stop1 = new Stop(0, 44.972392, -93.243774);
       List<Stop> stopsIn = new ArrayList<Stop>();
       stopsIn.add(stop1);
@@ -223,8 +237,8 @@ public class RouteTest {
       //System.out.println(distancesIn);
       List<Double> probabilitiesIn = new ArrayList<Double>();
       PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-      Route testRoute1=new Route("testIn",stopsIn,distancesIn,1,testGenIn);
-      final Charset charset=StandardCharsets.UTF_8;
+      Route testRoute1 = new Route("testIn", stopsIn, distancesIn, 1, testGenIn);
+      final Charset charset = StandardCharsets.UTF_8;
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       PrintStream testStream = new PrintStream(outputStream, true, charset.name());
       testRoute1.report(testStream);
@@ -248,16 +262,17 @@ public class RouteTest {
               + "****Stops Info End****" + System.lineSeparator()
               + "####Route Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
-    }catch(IOException ioe){
+    } catch (IOException ioe) {
       fail();
     }
   }
+
   /**
    * Test for report.
    */
   @Test
-  public void testReport1(){
-    try{
+  public void testReport1() {
+    try {
       Stop stop1 = new Stop(0, 44.972392, -93.243774);
       Stop stop2 = new Stop(1, 44.973580, -93.235071);
       List<Stop> stopsIn = new ArrayList<Stop>();
@@ -270,8 +285,8 @@ public class RouteTest {
       probabilitiesIn.add(.15);
       probabilitiesIn.add(0.3);
       PassengerGenerator testGenIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
-      Route testRoute1=new Route("testIn",stopsIn,distancesIn,2,testGenIn);
-      final Charset charset=StandardCharsets.UTF_8;
+      Route testRoute1 = new Route("testIn", stopsIn, distancesIn, 2, testGenIn);
+      final Charset charset = StandardCharsets.UTF_8;
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       PrintStream testStream = new PrintStream(outputStream, true, charset.name());
       testRoute1.report(testStream);
@@ -301,15 +316,16 @@ public class RouteTest {
               + "****Stops Info End****" + System.lineSeparator()
               + "####Route Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
-    }catch(IOException ioe){
+    } catch (IOException ioe) {
       fail();
     }
   }
+
   /**
    * Test for passenger is not at an end.
    */
   @Test
-  public void testIsNotAtEnd(){
+  public void testIsNotAtEnd() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -329,14 +345,15 @@ public class RouteTest {
     //testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait()
     testRoute.update();
     //System.out.println(testRoute.getStops().get(0).getPassengers().get(0).getDestination());
-    assertEquals(false,testRoute.isAtEnd());
+    assertEquals(false, testRoute.isAtEnd());
     //System.out.println(testRoute.isAtEnd());
   }
+
   /**
    * Test for passenger is at an end.
    */
   @Test
-  public void testIsAtEnd(){
+  public void testIsAtEnd() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     List<Stop> stopsIn = new ArrayList<Stop>();
@@ -352,13 +369,14 @@ public class RouteTest {
     //testRoute1.getStops().get(0).getPassengers().get(0).getTotalWait()
     testRoute.toNextStop();
     testRoute.toNextStop();
-    assertEquals(true,testRoute.isAtEnd());
+    assertEquals(true, testRoute.isAtEnd());
   }
+
   /**
    * Test for previous stop.
    */
   @Test
-  public void testPrevStop(){
+  public void testPrevStop() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -377,19 +395,20 @@ public class RouteTest {
     Route testRoute = new Route("testRoute", stopsIn, distancesIn, 3, generatorIn);
     testRoute.toNextStop();
     testRoute.toNextStop();
-    int index1=testRoute.getDestinationStopIndex();
+    int index1 = testRoute.getDestinationStopIndex();
     //System.out.println(index1);
-    int prevStopsId=testRoute.prevStop().getId();
+    int prevStopsId = testRoute.prevStop().getId();
     //System.out.println(testRoute.prevStop().getId());
-    assertEquals(index1,prevStopsId+1);
+    assertEquals(index1, prevStopsId + 1);
     //testRoute.prevStop();
 
   }
+
   /**
    * Test for toNextStop.
    */
   @Test
-  public void testToNextStop(){
+  public void testToNextStop() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -407,18 +426,19 @@ public class RouteTest {
     PassengerGenerator generatorIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
     Route testRoute = new Route("testRoute", stopsIn, distancesIn, 3, generatorIn);
     testRoute.update();
-    int testStop1=testRoute.getDestinationStopIndex();
+    int testStop1 = testRoute.getDestinationStopIndex();
     //System.out.println(testRoute.getDestinationStopIndex());
     testRoute.toNextStop();
-    int testStop2=testRoute.getDestinationStopIndex();
+    int testStop2 = testRoute.getDestinationStopIndex();
     //System.out.println(testRoute.getDestinationStopIndex());
-    assertEquals(testStop1+1,testStop2);
+    assertEquals(testStop1 + 1, testStop2);
   }
+
   /**
    * Test for getDestinationStop .
    */
   @Test
-  public void testGetDestinationStop(){
+  public void testGetDestinationStop() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -437,14 +457,15 @@ public class RouteTest {
     Route testRoute = new Route("testRoute", stopsIn, distancesIn, 3, generatorIn);
     testRoute.toNextStop();
     testRoute.toNextStop();
-    int stopIndex=testRoute.getDestinationStopIndex();
-    assertEquals(2,stopIndex);
+    int stopIndex = testRoute.getDestinationStopIndex();
+    assertEquals(2, stopIndex);
   }
+
   /**
    * Test for get total distance.
    */
   @Test
-  public void testGetTotalRouteDistance(){
+  public void testGetTotalRouteDistance() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -461,14 +482,15 @@ public class RouteTest {
     probabilitiesIn.add(.025);
     PassengerGenerator generatorIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
     Route testRoute = new Route("testRoute", stopsIn, distancesIn, 3, generatorIn);
-    double distance=testRoute.getTotalRouteDistance();
-    assertEquals((0.008784+0.008631),distance);
+    double distance = testRoute.getTotalRouteDistance();
+    assertEquals((0.008784 + 0.008631), distance);
   }
+
   /**
    * Test for get next stop distance.
    */
   @Test
-  public void testNextStopDistance(){
+  public void testNextStopDistance() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -486,17 +508,18 @@ public class RouteTest {
     PassengerGenerator generatorIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
     Route testRoute = new Route("testRoute", stopsIn, distancesIn, 3, generatorIn);
     testRoute.update();
-    double noDistance=testRoute.getNextStopDistance();
-    assertEquals(0.0,noDistance);
+    double noDistance = testRoute.getNextStopDistance();
+    assertEquals(0.0, noDistance);
     testRoute.toNextStop();
-    double firstDistance=testRoute.getNextStopDistance();
-    assertEquals(0.008784,firstDistance);
+    double firstDistance = testRoute.getNextStopDistance();
+    assertEquals(0.008784,  firstDistance);
   }
+
   /**
    * Test for update route data.
    */
   @Test
-  public void testUpdateRouteData(){
+  public void testUpdateRouteData() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -514,12 +537,10 @@ public class RouteTest {
     PassengerGenerator generatorIn = new RandomPassengerGenerator(probabilitiesIn, stopsIn);
     Route testRoute = new Route("testRoute", stopsIn, distancesIn, 3, generatorIn);
     //System.out.println(testRoute.getRouteData().getId());
-    assertEquals("",testRoute.getRouteData().getId());
-    assertEquals(0,testRoute.getRouteData().getStops().size());
+    assertEquals("", testRoute.getRouteData().getId());
+    assertEquals(0, testRoute.getRouteData().getStops().size());
     testRoute.updateRouteData();
-    assertEquals("testRoute",testRoute.getRouteData().getId());
-    assertEquals(3,testRoute.getRouteData().getStops().size());
+    assertEquals("testRoute", testRoute.getRouteData().getId());
+    assertEquals(3, testRoute.getRouteData().getStops().size());
   }
-
-
 }

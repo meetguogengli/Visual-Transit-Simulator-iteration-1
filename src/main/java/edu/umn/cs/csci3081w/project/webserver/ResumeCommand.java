@@ -8,9 +8,10 @@ import java.util.List;
 public class ResumeCommand extends MyWebServerCommand {
   private VisualizationSimulator mySim;
 
-  public ResumeCommand(VisualizationSimulator sim){
-  	this.mySim=sim;
+  public ResumeCommand(VisualizationSimulator sim) {
+    this.mySim = sim;
   }
+
   /**
    * Resume the state of the simulation.
    *
@@ -20,7 +21,7 @@ public class ResumeCommand extends MyWebServerCommand {
    */
   @Override
   public void execute(MyWebServerSession session, JsonObject command,
-                      MyWebServerSessionState state){
+                      MyWebServerSessionState state) {
     mySim.setResume();
 
   }

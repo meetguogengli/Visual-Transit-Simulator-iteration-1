@@ -25,6 +25,7 @@ public class BusTest {
     PassengerFactory.DETERMINISTIC_DESTINATION_COUNT = 0;
     RandomPassengerGenerator.DETERMINISTIC = true;
   }
+
   /**
    * Create a bus with outgoing and incoming routes and three stops per route.
    */
@@ -61,11 +62,12 @@ public class BusTest {
     Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
     return new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
   }
+
   /**
    * Test state after using constructor.
    */
   @Test
-  public void testConstructorNormal(){
+  public void testConstructorNormal() {
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     Stop stop2 = new Stop(1, 44.973580, -93.235071);
     Stop stop3 = new Stop(2, 44.975392, -93.226632);
@@ -95,22 +97,23 @@ public class BusTest {
     probabilitiesOut.add(.15);
     PassengerGenerator generatorOut = new RandomPassengerGenerator(probabilitiesOut, stopsOut);
     Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
-    Bus bus=new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
-    assertEquals("TestBus",bus.getName());
-    assertEquals(testRouteIn,bus.getIncomingRoute());
-    assertEquals(testRouteOut,bus.getOutgoingRoute());
-    assertEquals(5,bus.getCapacity());
+    Bus bus = new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
+    assertEquals("TestBus", bus.getName());
+    assertEquals(testRouteIn, bus.getIncomingRoute());
+    assertEquals(testRouteOut, bus.getOutgoingRoute());
+    assertEquals(5, bus.getCapacity());
     //assertEquals(2,bus.getIncomingRoute().getTotalRouteDistance());
     //needs modification
   }
+
   /**
    * Test for reporting bus.
    */
   @Test
-  public void testReport(){
-    try{
-      Bus bus1=createBus();
-      final Charset charset=StandardCharsets.UTF_8;
+  public void testReport() {
+    try {
+      Bus bus1 = createBus();
+      final Charset charset = StandardCharsets.UTF_8;
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
       PrintStream testStream = new PrintStream(outputStream, true, charset.name());
       bus1.move();
@@ -129,72 +132,76 @@ public class BusTest {
               + "****Passengers Info End****" + System.lineSeparator()
               + "####Bus Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
-    }catch(IOException ioe){
+    } catch (IOException ioe) {
       fail();
     }
   }
+
   /**
   * Test for whether the trip is complete.
   */
   @Test
-  public void testIsTripComplete(){
-    Bus bus1=createBus();
+  public void testIsTripComplete() {
+    Bus bus1 = createBus();
     bus1.move();
-    assertEquals(false,bus1.isTripComplete());
+    assertEquals(false, bus1.isTripComplete());
     bus1.move();
     bus1.move();
-    assertEquals(true,bus1.isTripComplete());
+    assertEquals(true, bus1.isTripComplete());
   }
+
   /**
    * Test for loading passenger.
    */
   @Test
-  public void testLoadPassenger(){
-    Bus bus1=createBus();
+  public void testLoadPassenger() {
+    Bus bus1 = createBus();
     //Passenger passenger0=new Passenger(null);
-    Passenger passenger1=new Passenger(2,"Gopher");
-    Passenger passenger2=new Passenger(2,"Gophm");
-    Passenger passenger3=new Passenger(2,"Gophq");
-    Passenger passenger4=new Passenger(2,"Gophk");
-    Passenger passenger5=new Passenger(2,"Gophl");
-    Passenger passenger6=new Passenger(2,"Gophy");
-    assertEquals(true,bus1.loadPassenger(passenger1));
+    Passenger passenger1 = new Passenger(2, "Gopher");
+    Passenger passenger2 = new Passenger(2, "Gophm");
+    Passenger passenger3 = new Passenger(2, "Gophq");
+    Passenger passenger4 = new Passenger(2, "Gophk");
+    Passenger passenger5 = new Passenger(2, "Gophl");
+    Passenger passenger6 = new Passenger(2, "Gophy");
+    assertEquals(true, bus1.loadPassenger(passenger1));
     bus1.loadPassenger(passenger2);
     bus1.loadPassenger(passenger3);
     bus1.loadPassenger(passenger4);
     bus1.loadPassenger(passenger5);
     //beyond maxCapacity
-    assertEquals(false,bus1.loadPassenger(passenger6));
+    assertEquals(false, bus1.loadPassenger(passenger6));
   }
+
   /**
    * Test for whether the bus moves.
    */
   @Test
-  public void testMove(){
-    Bus bus=createBus();
+  public void testMove() {
+    Bus bus = createBus();
     List<Passenger> pasList = new ArrayList<Passenger>();
-    Passenger passenger1=new Passenger(2,"Gopher");
-    Passenger passenger2=new Passenger(2,"Gophm");
+    Passenger passenger1 = new Passenger(2, "Gopher");
+    Passenger passenger2 = new Passenger(2, "Gophm");
     pasList.add(passenger1);
     pasList.add(passenger2);
     bus.loadPassenger(passenger1);
     bus.move();
     bus.loadPassenger(passenger2);
-    assertEquals(true,bus.move());
+    assertEquals(true, bus.move());
     bus.move();
-    assertEquals(true,bus.move());
-    assertEquals(2,passenger1.getTotalWait());
-    assertEquals(4,passenger2.getTotalWait());
+    assertEquals(true, bus.move());
+    assertEquals(2, passenger1.getTotalWait());
+    assertEquals(4, passenger2.getTotalWait());
   }
+
   /**
    * Test for update bus data.
    */
   @Test
-  public void testUpdateBusData(){
-    Bus bus1=createBus();
-    Passenger passenger1=new Passenger(1,"Bopher");
-    Passenger passenger2=new Passenger(1,"Qopher");
-    Passenger passenger3=new Passenger(1,"Nopher");
+  public void testUpdateBusData() {
+    Bus bus1 = createBus();
+    Passenger passenger1 = new Passenger(1, "Bopher");
+    Passenger passenger2 = new Passenger(1, "Qopher");
+    Passenger passenger3 = new Passenger(1, "Nopher");
     //System.out.println(bus1.getBusData().getPosition().getXcoordLoc());
     //System.out.println(bus1.getBusData().getPosition().getYcoordLoc());
     //System.out.println(bus1.getBusData().getPosition().getXcoordLoc());
@@ -208,15 +215,15 @@ public class BusTest {
     bus1.updateBusData();
     //System.out.println("PASSENGERS"+bus1.getBusData().getNumPassengers()); //->3
     //System.out.println(bus1.getNextStop().getId()); //-? print out: 2. so this stop is 1
-    assertEquals(3,bus1.getBusData().getNumPassengers());
-    assertEquals(5,bus1.getBusData().getCapacity());
-    assertEquals(44.97358,bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(3, bus1.getBusData().getNumPassengers());
+    assertEquals(5, bus1.getBusData().getCapacity());
+    assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
     //bus1.update();
     bus1.move();
     bus1.updateBusData();
-    assertEquals(3,bus1.getBusData().getNumPassengers());
-    assertEquals(5,bus1.getBusData().getCapacity());
-    assertEquals(44.972392,bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(3, bus1.getBusData().getNumPassengers());
+    assertEquals(5, bus1.getBusData().getCapacity());
+    assertEquals(44.972392, bus1.getBusData().getPosition().getXcoordLoc());
     //System.out.println("PASSENGERS"+bus1.getBusData().getNumPassengers()); //->3
     //System.out.println(bus1.getNextStop().getId());
     //bus1.update();
@@ -226,25 +233,26 @@ public class BusTest {
     //System.out.println(bus1.getNextStop().getId());
     //assertEquals(44.975392,bus1.getBusData().getPosition().getXcoordLoc());
     //assertEquals(-93.226632,bus1.getBusData().getPosition().getYcoordLoc());
-    assertEquals(0,bus1.getBusData().getNumPassengers());
-    assertEquals(44.97358,bus1.getBusData().getPosition().getXcoordLoc());
-    assertEquals(-93.235071,bus1.getBusData().getPosition().getYcoordLoc());
+    assertEquals(0, bus1.getBusData().getNumPassengers());
+    assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(-93.235071, bus1.getBusData().getPosition().getYcoordLoc());
     //assertEquals(1,bus1.getBusData().getNumPassengers());
   }
+
   /**
    * Test for update bus.
    */
   @Test
-  public void testUpdate(){
-    Bus bus1=createBus();
+  public void testUpdate() {
+    Bus bus1 = createBus();
     bus1.update();
-    assertEquals(0,bus1.getNextStop().getId());
+    assertEquals(0, bus1.getNextStop().getId());
     //System.out.println(bus1.getBusData().getPosition().getXcoordLoc());
-    assertEquals(44.97358,bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
     bus1.update();
-    assertEquals(1,bus1.getNextStop().getId());
-    assertEquals(44.972392,bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(1, bus1.getNextStop().getId());
+    assertEquals(44.972392, bus1.getBusData().getPosition().getXcoordLoc());
     //assertEquals("TestBus",bus1.getBusData().getId());
-    assertEquals(5,bus1.getBusData().getCapacity());
+    assertEquals(5, bus1.getBusData().getCapacity());
   }
 }

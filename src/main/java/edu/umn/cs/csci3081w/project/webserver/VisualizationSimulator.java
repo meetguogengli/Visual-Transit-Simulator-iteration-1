@@ -16,8 +16,9 @@ public class VisualizationSimulator {
   private List<Route> prototypeRoutes;
   private List<Bus> busses;
   private int busId = 1000;
-  private boolean is_pause = false;
-  private boolean is_resume = false;
+  private boolean isPause = false;
+  private boolean isResume = false;
+
   /**
    * Constructor for Simulation.
    * @param webI MWS object
@@ -57,7 +58,7 @@ public class VisualizationSimulator {
    * Updates the simulation at each step.
    */
   public void update() {
-    if(is_pause == false || is_resume == true){
+    if(isPause == false || isResume == true){
       simulationTimeElapsed++;
       System.out.println("~~~~The simulation time is now at time step "
           + simulationTimeElapsed + "~~~~");
@@ -98,25 +99,23 @@ public class VisualizationSimulator {
   /**
    * Pause the simulation at a specific step.
    */
-  public void setPause(){
-    if (is_pause == false){
-      is_pause=true;
+  public void setPause() {
+    if (isPause == false) {
+      isPause = true;
     }
-    else if (is_pause == true)
-    {
-      is_pause = false;
+    else if (isPause == true) {
+      isPause = false;
     }
   }
   /**
    * Resume the simulation
    */
-  public void setResume(){
-    if (is_resume == false){
-      is_resume = true;
+  public void setResume() {
+    if (isResume == false) {
+      isResume = true;
     }
-    else if (is_resume == true)
-    {
-      is_resume = false;
+    else if (isResume == true) {
+      isResume = false;
     }
   }
 }

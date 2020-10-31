@@ -25,6 +25,7 @@ public class PassengerTest {
     PassengerFactory.DETERMINISTIC_DESTINATION_COUNT = 0;
     RandomPassengerGenerator.DETERMINISTIC = true;
   }
+
   /**
    * Create a bus with outgoing and incoming routes and three stops per route.
    */
@@ -60,90 +61,63 @@ public class PassengerTest {
     Route testRouteOut = new Route("testRouteIn", stopsOut, distancesOut, 3, generatorOut);
     return new Bus("TestBus", testRouteOut, testRouteIn, 5, 1);
   }
+
   /**
    * Test after using constructor.
    */
   @Test
-  public void testConstructorNormal(){
-    Passenger passenger=new Passenger(1,"Goldy");
+  public void testConstructorNormal() {
+    Passenger passenger = new Passenger(1, "Goldy");
     assertEquals(1, passenger.getDestination());
     //assertEquals("Goldy",passenger.getName());
   }
-  /**
-   * Test passenger's name after name generation.
-   */
-  //@Test
-  //public void testNameGeneration(){
-    //String generatedName=PassengerFactory.nameGeneration();
-    //assertEquals("Goldy",generatedName);
-  //}
-  /**
-   * Test the status for passenger not on the bus.
-   */
+
   @Test
-  public void testIsOnBus1(){
-    Passenger passenger=new Passenger(1,"Goldy");
-    boolean status=passenger.isOnBus();
-    assertEquals(false,status);
+  public void testIsOnBus1() {
+    Passenger passenger = new Passenger(1, "Goldy");
+    boolean status = passenger.isOnBus();
+    assertEquals(false, status);
   }
+
   /**
    * Test the status for passenger on the bus->on the bus.
    */
   @Test
-  public void testIsOnBus2(){
-    Bus testBus=createBus();
-    Passenger passenger=new Passenger(1,"Goldy");
+  public void testIsOnBus2() {
+    Bus testBus = createBus();
+    Passenger passenger = new Passenger(1, "Goldy");
     testBus.getNextStop().addPassengers(passenger);
     testBus.getNextStop().loadPassengers(testBus);
-    boolean status=passenger.isOnBus();
-    assertEquals(true,status);
+    boolean status = passenger.isOnBus();
+    assertEquals(true, status);
   }
 
   /**
    * Test pasUpdate.
    */
   @Test
-  public void testPasUpdate(){
-    Bus testBus=createBus();
-    Passenger passenger=new Passenger(1,"Goldy");
+  public void testPasUpdate() {
+    Bus testBus = createBus();
+    Passenger passenger = new Passenger(1, "Goldy");
     testBus.getNextStop().addPassengers(passenger);
     testBus.getNextStop().loadPassengers(testBus);
     passenger.pasUpdate();
-    assertEquals(2,passenger.getTotalWait());
+    assertEquals(2, passenger.getTotalWait());
   }
-  /**
-   * Test for on the bus->not on the bus.
-   */
-  //@Test
-  //public void testIsOnBus3(){
-    //Bus testBus=createBus();
-    //Passenger passenger1=new Passenger(1,"Goldy");
-    //List<Passenger> passengerIn = new ArrayList<Passenger>();
-    //passengerIn.add(passenger1);
-    //Stop stop1=new Stop(0, 44.972392, -93.243774);
-    //testBus.getNextStop().addPassengers(passenger1);
-    //testBus.getNextStop().loadPassengers(testBus);
-    //PassengerUnloader pl=new PassengerUnloader();
-    //pl.unloadPassengers(passengerIn,stop1);
-    //boolean status=passenger1.isOnBus();
-    //assertEquals(false,status);
-  //}
-  /**
-   * Testing reporting functionality with no passenger getting on the bus.
-   */
+
   @Test
-  public void testPassengerWithourGetOnBus(){
-    try{
-      Passenger passenger1=new Passenger(0,"Goldy");
-      final Charset charset=StandardCharsets.UTF_8;
-      ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
-      PrintStream testStream = new PrintStream(outputStream,true,charset.name());
+  public void testPassengerWithourGetOnBus() {
+    try {
+      Passenger passenger1 = new Passenger(0, "Goldy");
+      final Charset charset = StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream, true, charset.name());
       passenger1.report(testStream);
       outputStream.flush();
-      String data=new String(outputStream.toByteArray(),charset);
+      String data = new String(outputStream.toByteArray(), charset);
       testStream.close();
       outputStream.close();
-      String strToCompare=
+      String strToCompare =
           "####Passenger Info Start####" + System.lineSeparator()
               + "Name: Goldy" + System.lineSeparator()
               + "Destination: 0" + System.lineSeparator()
@@ -152,31 +126,31 @@ public class PassengerTest {
               + "Time on bus: 0" + System.lineSeparator()
               + "####Passenger Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
-    } catch(IOException ioe){
+    } catch (IOException ioe) {
       fail();
     }
   }
 
- /**
+  /**
    * Testing reporting functionality with no passenger getting on the bus.
    */
   @Test
-  public void testPassenger2GetOnBus(){
-    try{
-      Bus testBus=createBus();
-      Passenger passenger1=new Passenger(1,"Goldy");
+  public void testPassenger2GetOnBus() {
+    try {
+      Bus testBus = createBus();
+      Passenger passenger1 = new Passenger(1, "Goldy");
       testBus.getNextStop().addPassengers(passenger1);
       testBus.getNextStop().loadPassengers(testBus);
       passenger1.pasUpdate();
-      final Charset charset=StandardCharsets.UTF_8;
-      ByteArrayOutputStream outputStream=new ByteArrayOutputStream();
-      PrintStream testStream = new PrintStream(outputStream,true,charset.name());
+      final Charset charset = StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream, true, charset.name());
       passenger1.report(testStream);
       outputStream.flush();
-      String data=new String(outputStream.toByteArray(),charset);
+      String data = new String(outputStream.toByteArray(), charset);
       testStream.close();
       outputStream.close();
-      String strToCompare=
+      String strToCompare =
           "####Passenger Info Start####" + System.lineSeparator()
               + "Name: Goldy" + System.lineSeparator()
               + "Destination: 1" + System.lineSeparator()
@@ -185,10 +159,8 @@ public class PassengerTest {
               + "Time on bus: 2" + System.lineSeparator()
               + "####Passenger Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
-    } catch(IOException ioe){
+    } catch (IOException ioe) {
       fail();
     }
   }
-
-
 }

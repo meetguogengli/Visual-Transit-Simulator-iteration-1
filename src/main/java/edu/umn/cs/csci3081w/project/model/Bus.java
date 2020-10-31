@@ -180,13 +180,9 @@ public class Bus {
     // distance remaining to the stop is 0 because we are at the stop.
     // If no unload/load operation was made and the distance is negative,
     // this means that we did not stop and keep going further.
-    if (passengersHandled != 0) {
-      distanceRemaining = 0;
-    }
-    else {
-      //skip this current stop since no one need to be unload or load
-      toNextStop();
-    }
+    if (passengersHandled != 0) { distanceRemaining = 0; }
+    //skip this current stop since no one need to be unload or load
+    else { toNextStop(); }
     return passengersHandled;
   }
 

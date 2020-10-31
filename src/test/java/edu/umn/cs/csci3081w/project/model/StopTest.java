@@ -147,20 +147,20 @@ public class StopTest {
     assertEquals(5, passengersOnBus);
   }
 
-   /**
+  /**
    * Test stopUpdate.
    */
   @Test
-  public void testStopUpdate(){
-    Bus testBus=createBus();
-    Passenger passenger=new Passenger(1,"Goldy");
+  public void testStopUpdate() {
+    Bus testBus = createBus();
+    Passenger passenger = new Passenger(1, "Goldy");
     testBus.getNextStop().addPassengers(passenger);
     testBus.getNextStop().loadPassengers(testBus);
-    assertEquals(1,passenger.getTotalWait());
+    assertEquals(1, passenger.getTotalWait());
     Stop stop1 = new Stop(0, 44.972392, -93.243774);
     stop1.update();
     passenger.pasUpdate();
-    assertEquals(2,passenger.getTotalWait());
+    assertEquals(2, passenger.getTotalWait());
   }
 
   /**
@@ -260,19 +260,20 @@ public class StopTest {
       fail();
     }
   }
+
   /**
    * Test for stop update.
    */
   @Test
-  public void testUpdate(){
+  public void testUpdate() {
     Stop stop = new Stop(0, 44.972392, -93.243774);
     Passenger passenger1 = new Passenger(1, "Goldy");
-    Passenger passenger2 = new Passenger(1,"Zarya");
+    Passenger passenger2 = new Passenger(1, "Zarya");
     stop.addPassengers(passenger1);
     //System.out.println(stop.getNumPassengersPresent());
     stop.addPassengers(passenger2);
     stop.update();
-    int num=stop.getNumPassengersPresent();
-    assertEquals(2,num);
+    int num = stop.getNumPassengersPresent();
+    assertEquals(2, num);
   }
 }

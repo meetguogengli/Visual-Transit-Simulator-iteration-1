@@ -8,9 +8,10 @@ import java.util.List;
 public class PauseCommand extends MyWebServerCommand {
   private VisualizationSimulator mySim;
 
-  public PauseCommand(VisualizationSimulator sim){
-  	this.mySim=sim;
+  public PauseCommand(VisualizationSimulator sim) {
+    this.mySim = sim;
   }
+
   /**
    * Pause the state of the simulation.
    *
@@ -20,7 +21,7 @@ public class PauseCommand extends MyWebServerCommand {
    */
   @Override
   public void execute(MyWebServerSession session, JsonObject command,
-                      MyWebServerSessionState state){
+                      MyWebServerSessionState state) {
     mySim.setPause();
 
   }
