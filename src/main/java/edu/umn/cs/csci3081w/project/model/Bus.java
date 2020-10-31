@@ -182,7 +182,8 @@ public class Bus {
     // this means that we did not stop and keep going further.
     if (passengersHandled != 0) {
       distanceRemaining = 0;
-    }else{
+    }
+    else {
       //skip this current stop since no one need to be unload or load
       toNextStop();
     }
