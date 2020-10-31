@@ -100,7 +100,7 @@ public class ConfigManager {
           }
         }
       }
-      // Generatre our last route
+      // Generate our last route
       if (stops.size() > 0) {
         int numStops = stops.size();
         List<Stop> rawStops = new ArrayList<>();
