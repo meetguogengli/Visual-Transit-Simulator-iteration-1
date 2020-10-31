@@ -57,7 +57,7 @@ public class Bus {
       pass.report(out);
     }
     out.println("****Passengers Info End****");
-    out.println("####Bus Info Start####");
+    out.println("####Bus Info End####");
   }
 
   public boolean isTripComplete() {

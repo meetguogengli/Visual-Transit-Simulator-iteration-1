@@ -148,17 +148,20 @@ public class StopTest {
   }
 
    /**
-   * Test stopUpdate
+   * Test stopUpdate.
    */
-  //@Test
-  //public void testStopUpdate(){
-    //Bus testBus=createBus();
-    //Stop stop=new Passenger(1,"Goldy");
-    //testBus.getNextStop().addPassengers(passenger);
-    //testBus.getNextStop().loadPassengers(testBus);
-    //passenger.pasUpdate();
-    //assertEquals(true,passenger.isOnBus());
-  //}
+  @Test
+  public void testStopUpdate(){
+    Bus testBus=createBus();
+    Passenger passenger=new Passenger(1,"Goldy");
+    testBus.getNextStop().addPassengers(passenger);
+    testBus.getNextStop().loadPassengers(testBus);
+    assertEquals(1,passenger.getTotalWait());
+    Stop stop1 = new Stop(0, 44.972392, -93.243774);
+    stop1.update();
+    passenger.pasUpdate();
+    assertEquals(2,passenger.getTotalWait());
+  }
 
   /**
    * Tests if passengers can be loaded onto a bus with space correctly from a stop
