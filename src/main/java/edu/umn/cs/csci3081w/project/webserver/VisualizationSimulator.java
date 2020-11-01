@@ -4,7 +4,7 @@ import edu.umn.cs.csci3081w.project.model.Bus;
 import edu.umn.cs.csci3081w.project.model.Route;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 public class VisualizationSimulator {
 
   private WebInterface webInterface;
@@ -58,6 +58,9 @@ public class VisualizationSimulator {
    * Updates the simulation at each step.
    */
   public void update() {
+    Random rand = new Random();
+    int capacity = 30 * rand.nextInt(3) + 30;
+
     if(isPause == false || isResume == true){
       simulationTimeElapsed++;
       System.out.println("~~~~The simulation time is now at time step "
@@ -68,7 +71,7 @@ public class VisualizationSimulator {
         if (timeSinceLastBus.get(i) <= 0) {
           Route outbound = prototypeRoutes.get(2 * i);
           Route inbound = prototypeRoutes.get(2 * i + 1);
-          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), 60,
+          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), capacity,
               1));
           busId++;
           timeSinceLastBus.set(i, busStartTimings.get(i));
@@ -96,6 +99,7 @@ public class VisualizationSimulator {
       }
     }
   }
+
   /**
    * Pause the simulation at a specific step.
    */
@@ -107,6 +111,7 @@ public class VisualizationSimulator {
       isPause = false;
     }
   }
+
   /**
    * Resume the simulation
    */
