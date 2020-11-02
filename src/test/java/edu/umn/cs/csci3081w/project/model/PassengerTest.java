@@ -106,7 +106,7 @@ public class PassengerTest {
   }
 
   @Test
-  public void testPassengerWithourGetOnBus() {
+  public void testPassengerWithoutGetOnBus() {
     try {
       Passenger passenger1 = new Passenger(0, "Goldy");
       final Charset charset = StandardCharsets.UTF_8;

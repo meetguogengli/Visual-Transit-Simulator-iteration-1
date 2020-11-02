@@ -5,6 +5,7 @@ import edu.umn.cs.csci3081w.project.model.Route;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 public class VisualizationSimulator {
 
   private WebInterface webInterface;
@@ -21,7 +22,8 @@ public class VisualizationSimulator {
 
   /**
    * Constructor for Simulation.
-   * @param webI MWS object
+   *
+   * @param webI    MWS object
    * @param configM config object
    */
   public VisualizationSimulator(MyWebServer webI, ConfigManager configM) {
@@ -36,14 +38,15 @@ public class VisualizationSimulator {
 
   /**
    * Starts the simulation.
+   *
    * @param busStartTimingsParam start timings of bus
-   * @param numTimeStepsParam number of time steps
+   * @param numTimeStepsParam    number of time steps
    */
   public void start(List<Integer> busStartTimingsParam, int numTimeStepsParam) {
     this.busStartTimings = busStartTimingsParam;
     this.numTimeSteps = numTimeStepsParam;
     for (int i = 0; i < busStartTimings.size(); i++) {
-      this.timeSinceLastBus.add(i,  0);
+      this.timeSinceLastBus.add(i, 0);
     }
     simulationTimeElapsed = 0;
     prototypeRoutes = configManager.getRoutes();
@@ -61,7 +64,7 @@ public class VisualizationSimulator {
     Random rand = new Random();
     int capacity = 30 * rand.nextInt(3) + 30;
 
-    if(isPause == false || isResume == true){
+    if (isPause == false || isResume == true) {
       simulationTimeElapsed++;
       System.out.println("~~~~The simulation time is now at time step "
           + simulationTimeElapsed + "~~~~");
@@ -71,8 +74,8 @@ public class VisualizationSimulator {
         if (timeSinceLastBus.get(i) <= 0) {
           Route outbound = prototypeRoutes.get(2 * i);
           Route inbound = prototypeRoutes.get(2 * i + 1);
-          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(), inbound.shallowCopy(), capacity,
-              1));
+          busses.add(new Bus(String.valueOf(busId), outbound.shallowCopy(),
+              inbound.shallowCopy(), capacity, 1));
           busId++;
           timeSinceLastBus.set(i, busStartTimings.get(i));
           timeSinceLastBus.set(i, timeSinceLastBus.get(i) - 1);
@@ -106,20 +109,18 @@ public class VisualizationSimulator {
   public void setPause() {
     if (isPause == false) {
       isPause = true;
-    }
-    else if (isPause == true) {
+    } else if (isPause == true) {
       isPause = false;
     }
   }
 
   /**
-   * Resume the simulation
+   * Resume the simulation.
    */
   public void setResume() {
     if (isResume == false) {
       isResume = true;
-    }
-    else if (isResume == true) {
+    } else if (isResume == true) {
       isResume = false;
     }
   }
