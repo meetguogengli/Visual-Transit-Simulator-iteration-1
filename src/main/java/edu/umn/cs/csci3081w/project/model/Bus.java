@@ -21,11 +21,11 @@ public class Bus {
   /**
    * Constructor for a bus.
    *
-   * @param name name of bus
-   * @param out  outbound route
-   * @param in inbound route
+   * @param name     name of bus
+   * @param out      outbound route
+   * @param in       inbound route
    * @param capacity capacity of bus
-   * @param speed speed of bus
+   * @param speed    speed of bus
    */
   public Bus(String name, Route out, Route in, int capacity, double speed) {
     this.name = name;
@@ -180,9 +180,12 @@ public class Bus {
     // distance remaining to the stop is 0 because we are at the stop.
     // If no unload/load operation was made and the distance is negative,
     // this means that we did not stop and keep going further.
-    if (passengersHandled != 0) { distanceRemaining = 0; }
+    if (passengersHandled != 0) {
+      distanceRemaining = 0;
+    } else {
+      toNextStop();
+    }
     //skip this current stop since no one need to be unload or load
-    else { toNextStop(); }
     return passengersHandled;
   }
 
