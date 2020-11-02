@@ -71,7 +71,9 @@ public class PassengerTest {
     assertEquals(1, passenger.getDestination());
     //assertEquals("Goldy",passenger.getName());
   }
-
+  /**
+   * Test for this passenger not on bus.
+   */
   @Test
   public void testIsOnBus1() {
     Passenger passenger = new Passenger(1, "Goldy");
@@ -104,9 +106,11 @@ public class PassengerTest {
     passenger.pasUpdate();
     assertEquals(2, passenger.getTotalWait());
   }
-
+  /**
+   * Test passenger without getting on bus
+   */
   @Test
-  public void testPassengerWithoutGetOnBus() {
+  public void testReportPassengerWithoutGetOnBus() {
     try {
       Passenger passenger1 = new Passenger(0, "Goldy");
       final Charset charset = StandardCharsets.UTF_8;
@@ -135,7 +139,7 @@ public class PassengerTest {
    * Testing reporting functionality with no passenger getting on the bus.
    */
   @Test
-  public void testPassenger2GetOnBus() {
+  public void testReportPassenger2GetOnBus() {
     try {
       Bus testBus = createBus();
       Passenger passenger1 = new Passenger(1, "Goldy");

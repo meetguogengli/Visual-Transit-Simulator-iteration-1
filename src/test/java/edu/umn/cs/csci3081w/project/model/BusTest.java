@@ -107,10 +107,10 @@ public class BusTest {
   }
 
   /**
-   * Test for reporting bus.
+   * Test for reporting bus without passenger.
    */
   @Test
-  public void testReport() {
+  public void testReportWithout() {
     try {
       Bus bus1 = createBus();
       final Charset charset = StandardCharsets.UTF_8;
@@ -136,7 +136,45 @@ public class BusTest {
       fail();
     }
   }
-
+  /**
+   * Test for reporting bus with passenger.
+   */
+  @Test
+  public void testReportWith() {
+    try {
+      Bus bus1 = createBus();
+      final Charset charset = StandardCharsets.UTF_8;
+      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+      PrintStream testStream = new PrintStream(outputStream, true, charset.name());
+      Passenger passenger3 = new Passenger(2, "Gophq");
+      bus1.move();
+      bus1.loadPassenger(passenger3);
+      bus1.report(testStream);
+      outputStream.flush();
+      String data = new String(outputStream.toByteArray(), charset);
+      testStream.close();
+      outputStream.close();
+      String strToCompare =
+              "####Bus Info Start####" + System.lineSeparator()
+                      + "Name: TestBus" + System.lineSeparator()
+                      + "Speed: 1.0" + System.lineSeparator()
+                      + "Distance to next stop: 0.008784" + System.lineSeparator()
+                      + "****Passengers Info Start****" + System.lineSeparator()
+                      + "Num of passengers: 1" + System.lineSeparator()
+                      + "####Passenger Info Start####" + System.lineSeparator()
+                      + "Name: Gophq" + System.lineSeparator()
+                      + "Destination: 2" + System.lineSeparator()
+                      + "Total wait: 1" + System.lineSeparator()
+                      + "Wait at stop: 0" + System.lineSeparator()
+                      + "Time on bus: 1" + System.lineSeparator()
+                      + "####Passenger Info End####" + System.lineSeparator()
+                      + "****Passengers Info End****" + System.lineSeparator()
+                      + "####Bus Info End####" + System.lineSeparator();
+      assertEquals(data, strToCompare);
+    } catch (IOException ioe) {
+      fail();
+    }
+  }
   /**
   * Test for whether the trip is complete.
   */
@@ -151,10 +189,10 @@ public class BusTest {
   }
 
   /**
-   * Test for loading passenger.
+   * Test for loading passenger within or beyond bus capacity when stop is empty .
    */
   @Test
-  public void testLoadPassenger() {
+  public void testLoadPassengerEmptyStopWithinOrBeyondCapacity() {
     Bus bus1 = createBus();
     //Passenger passenger0=new Passenger(null);
     Passenger passenger1 = new Passenger(2, "Gopher");
@@ -171,7 +209,26 @@ public class BusTest {
     //beyond maxCapacity
     assertEquals(false, bus1.loadPassenger(passenger6));
   }
-
+  /**
+   * Test for loading passenger within or beyond bus capacity when stop is empty .
+   */
+  @Test
+  public void testLoadPassengerNonEmptyStopWithinCapacity() {
+    Bus bus1 = createBus();
+    //Passenger passenger0=new Passenger(null);
+    Passenger passenger1 = new Passenger(2, "Gopher");
+    Passenger passenger2 = new Passenger(2, "Gophm");
+    Passenger passenger3 = new Passenger(2, "Gophq");
+    Passenger passenger4 = new Passenger(2, "Gophk");
+    Passenger passenger5 = new Passenger(2, "Gophl");
+    Passenger passenger6 = new Passenger(2, "Gophy");
+    bus1.getNextStop().addPassengers(passenger1);
+    bus1.getNextStop().addPassengers(passenger2);
+    bus1.getNextStop().addPassengers(passenger3);
+    int passengersLoaded = bus1.getNextStop().loadPassengers(bus1);
+    assertEquals(3,passengersLoaded);
+    assertEquals(true, bus1.loadPassenger(passenger6));
+  }
   /**
    * Test for whether the bus moves.
    */
@@ -186,11 +243,12 @@ public class BusTest {
     bus.loadPassenger(passenger1);
     bus.move();
     bus.loadPassenger(passenger2);
-    assertEquals(true, bus.move());
     bus.move();
+    assertEquals(0,bus.getNextStop().getId());
     assertEquals(true, bus.move());
+    assertEquals(2,bus.getNextStop().getId());
     assertEquals(2, passenger1.getTotalWait());
-    assertEquals(4, passenger2.getTotalWait());
+    assertEquals(3, passenger2.getTotalWait());
   }
 
   /**
@@ -198,7 +256,7 @@ public class BusTest {
    */
   @Test
   public void testUpdateBusData() {
-    Bus bus1 = createBus();
+      Bus bus1 = createBus();
     Passenger passenger1 = new Passenger(1, "Bopher");
     Passenger passenger2 = new Passenger(1, "Qopher");
     Passenger passenger3 = new Passenger(1, "Nopher");
@@ -218,12 +276,15 @@ public class BusTest {
     assertEquals(3, bus1.getBusData().getNumPassengers());
     assertEquals(5, bus1.getBusData().getCapacity());
     assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(0,bus1.getNextStop().getId());
     //bus1.update();
     bus1.move();
     bus1.updateBusData();
     assertEquals(3, bus1.getBusData().getNumPassengers());
     assertEquals(5, bus1.getBusData().getCapacity());
     assertEquals(44.972392, bus1.getBusData().getPosition().getXcoordLoc());
+    assertEquals(1,bus1.getNextStop().getId());
+
     //System.out.println("PASSENGERS"+bus1.getBusData().getNumPassengers()); //->3
     //System.out.println(bus1.getNextStop().getId());
     //bus1.update();
@@ -236,6 +297,8 @@ public class BusTest {
     assertEquals(0, bus1.getBusData().getNumPassengers());
     assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
     assertEquals(-93.235071, bus1.getBusData().getPosition().getYcoordLoc());
+    assertEquals(2,bus1.getNextStop().getId());
+
     //assertEquals(1,bus1.getBusData().getNumPassengers());
   }
 
@@ -245,6 +308,9 @@ public class BusTest {
   @Test
   public void testUpdate() {
     Bus bus1 = createBus();
+    Passenger passenger3 = new Passenger(1, "Nopher");
+    bus1.getNextStop().addPassengers(passenger3);
+    bus1.getNextStop().loadPassengers(bus1);
     bus1.update();
     assertEquals(0, bus1.getNextStop().getId());
     //System.out.println(bus1.getBusData().getPosition().getXcoordLoc());
@@ -254,5 +320,7 @@ public class BusTest {
     assertEquals(44.972392, bus1.getBusData().getPosition().getXcoordLoc());
     //assertEquals("TestBus",bus1.getBusData().getId());
     assertEquals(5, bus1.getBusData().getCapacity());
+    assertEquals(1, bus1.getBusData().getNumPassengers());
+
   }
 }
