@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class BusTest {
 
   /**
@@ -136,6 +137,7 @@ public class BusTest {
       fail();
     }
   }
+
   /**
    * Test for reporting bus with passenger.
    */
@@ -155,29 +157,30 @@ public class BusTest {
       testStream.close();
       outputStream.close();
       String strToCompare =
-              "####Bus Info Start####" + System.lineSeparator()
-                      + "Name: TestBus" + System.lineSeparator()
-                      + "Speed: 1.0" + System.lineSeparator()
-                      + "Distance to next stop: 0.008784" + System.lineSeparator()
-                      + "****Passengers Info Start****" + System.lineSeparator()
-                      + "Num of passengers: 1" + System.lineSeparator()
-                      + "####Passenger Info Start####" + System.lineSeparator()
-                      + "Name: Gophq" + System.lineSeparator()
-                      + "Destination: 2" + System.lineSeparator()
-                      + "Total wait: 1" + System.lineSeparator()
-                      + "Wait at stop: 0" + System.lineSeparator()
-                      + "Time on bus: 1" + System.lineSeparator()
-                      + "####Passenger Info End####" + System.lineSeparator()
-                      + "****Passengers Info End****" + System.lineSeparator()
-                      + "####Bus Info End####" + System.lineSeparator();
+          "####Bus Info Start####" + System.lineSeparator()
+              + "Name: TestBus" + System.lineSeparator()
+              + "Speed: 1.0" + System.lineSeparator()
+              + "Distance to next stop: 0.008784" + System.lineSeparator()
+              + "****Passengers Info Start****" + System.lineSeparator()
+              + "Num of passengers: 1" + System.lineSeparator()
+              + "####Passenger Info Start####" + System.lineSeparator()
+              + "Name: Gophq" + System.lineSeparator()
+              + "Destination: 2" + System.lineSeparator()
+              + "Total wait: 1" + System.lineSeparator()
+              + "Wait at stop: 0" + System.lineSeparator()
+              + "Time on bus: 1" + System.lineSeparator()
+              + "####Passenger Info End####" + System.lineSeparator()
+              + "****Passengers Info End****" + System.lineSeparator()
+              + "####Bus Info End####" + System.lineSeparator();
       assertEquals(data, strToCompare);
     } catch (IOException ioe) {
       fail();
     }
   }
+
   /**
-  * Test for whether the trip is complete.
-  */
+   * Test for whether the trip is complete.
+   */
   @Test
   public void testIsTripComplete() {
     Bus bus1 = createBus();
@@ -209,6 +212,7 @@ public class BusTest {
     //beyond maxCapacity
     assertEquals(false, bus1.loadPassenger(passenger6));
   }
+
   /**
    * Test for loading passenger within or beyond bus capacity when stop is empty .
    */
@@ -226,9 +230,10 @@ public class BusTest {
     bus1.getNextStop().addPassengers(passenger2);
     bus1.getNextStop().addPassengers(passenger3);
     int passengersLoaded = bus1.getNextStop().loadPassengers(bus1);
-    assertEquals(3,passengersLoaded);
+    assertEquals(3, passengersLoaded);
     assertEquals(true, bus1.loadPassenger(passenger6));
   }
+
   /**
    * Test for whether the bus moves.
    */
@@ -244,9 +249,9 @@ public class BusTest {
     bus.move();
     bus.loadPassenger(passenger2);
     bus.move();
-    assertEquals(0,bus.getNextStop().getId());
+    assertEquals(0, bus.getNextStop().getId());
     assertEquals(true, bus.move());
-    assertEquals(2,bus.getNextStop().getId());
+    assertEquals(2, bus.getNextStop().getId());
     assertEquals(2, passenger1.getTotalWait());
     assertEquals(3, passenger2.getTotalWait());
   }
@@ -256,7 +261,7 @@ public class BusTest {
    */
   @Test
   public void testUpdateBusData() {
-      Bus bus1 = createBus();
+    Bus bus1 = createBus();
     Passenger passenger1 = new Passenger(1, "Bopher");
     Passenger passenger2 = new Passenger(1, "Qopher");
     Passenger passenger3 = new Passenger(1, "Nopher");
@@ -276,14 +281,14 @@ public class BusTest {
     assertEquals(3, bus1.getBusData().getNumPassengers());
     assertEquals(5, bus1.getBusData().getCapacity());
     assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
-    assertEquals(0,bus1.getNextStop().getId());
+    assertEquals(0, bus1.getNextStop().getId());
     //bus1.update();
     bus1.move();
     bus1.updateBusData();
     assertEquals(3, bus1.getBusData().getNumPassengers());
     assertEquals(5, bus1.getBusData().getCapacity());
     assertEquals(44.972392, bus1.getBusData().getPosition().getXcoordLoc());
-    assertEquals(1,bus1.getNextStop().getId());
+    assertEquals(1, bus1.getNextStop().getId());
 
     //System.out.println("PASSENGERS"+bus1.getBusData().getNumPassengers()); //->3
     //System.out.println(bus1.getNextStop().getId());
@@ -297,7 +302,7 @@ public class BusTest {
     assertEquals(0, bus1.getBusData().getNumPassengers());
     assertEquals(44.97358, bus1.getBusData().getPosition().getXcoordLoc());
     assertEquals(-93.235071, bus1.getBusData().getPosition().getYcoordLoc());
-    assertEquals(2,bus1.getNextStop().getId());
+    assertEquals(2, bus1.getNextStop().getId());
 
     //assertEquals(1,bus1.getBusData().getNumPassengers());
   }

@@ -71,6 +71,7 @@ public class PassengerTest {
     assertEquals(1, passenger.getDestination());
     //assertEquals("Goldy",passenger.getName());
   }
+
   /**
    * Test for this passenger not on bus.
    */
@@ -106,8 +107,9 @@ public class PassengerTest {
     passenger.pasUpdate();
     assertEquals(2, passenger.getTotalWait());
   }
+
   /**
-   * Test passenger without getting on bus
+   * Test passenger without getting on bus.
    */
   @Test
   public void testReportPassengerWithoutGetOnBus() {
